@@ -1,0 +1,4 @@
+data:
+  database:
+    driver: mysql
+    source: root:root(127.0.0.1:3306)/mysql?timeout=5s&readTimeout=5s&writeTimeout=5s&charset=utf8mb4&parseTime=true&loc=Local

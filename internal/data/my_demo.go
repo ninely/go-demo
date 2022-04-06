@@ -2,7 +2,7 @@ package data
 
 import (
 	"context"
-	"demo/service"
+	"demo/internal/service"
 )
 
 type repository struct {

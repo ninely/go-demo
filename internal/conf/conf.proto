@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package demo;
+
+option go_package = "demo/conf;conf";
+
+import "google/protobuf/duration.proto";
+
+message Data {
+  message Database {
+    string driver = 1;
+    string source = 2;
+  }
+
+  Database database = 1;
+}
+
