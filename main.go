@@ -10,31 +10,50 @@ import (
 	"fmt"
 	"github.com/pkg/errors"
 	"os"
+	"reflect"
+	"runtime"
 )
 
+func RunStudy(handler interface{}) {
+	funcValue := reflect.ValueOf(handler)
+	retList := funcValue.Call(nil)
+	funcName := runtime.FuncForPC(funcValue.Pointer()).Name()
+
+	var result string
+	for _, v := range retList {
+		result += fmt.Sprintf("%v", v.Interface())
+	}
+
+	fmt.Printf("%s: %s\n", funcName, result)
+}
+
 func main() {
-	fmt.Println(study.AppendNil())
-	fmt.Println(study.ReadNil())
-	fmt.Println(study.EmptyToByte())
-	fmt.Println(study.MarshalNil())
-	fmt.Println(study.RefAll())
-	fmt.Println(study.WriteNil())
-	fmt.Println(study.MarshalStruct())
-	fmt.Println(study.MarshalPointStruct())
-	fmt.Println(study.MarshalStructEmpty())
-	fmt.Println(study.MarshalPointStructEmpty())
-	fmt.Println(study.FilePath())
-	fmt.Println(study.LevCompare())
-	fmt.Println(study.IntType())
+	RunStudy(study.AppendNil)
+	RunStudy(study.RefAll)
+	RunStudy(study.ReadNil)
+	RunStudy(study.WriteNil)
 
-	//fmt.Println(study.NotWaitPanic())
-	//fmt.Println(study.WaitPanic())
+	RunStudy(study.EmptyToByte)
 
-	//RunResume()
+	RunStudy(study.WriteNil)
+	RunStudy(study.FilePath)
+	RunStudy(study.LevCompare)
+	RunStudy(study.IntType)
 
-	//RunDemo()
+	RunStudy(study.MarshalNil)
+	RunStudy(study.MarshalStruct)
+	RunStudy(study.MarshalPointStruct)
+	RunStudy(study.MarshalStructEmpty)
+	RunStudy(study.MarshalPointStructEmpty)
 
-	//RunErr()
+	// RunStudy(study.NotWaitPanic)
+	// RunStudy(study.WaitPanic)
+
+	// RunResume()
+
+	// RunDemo()
+
+	// RunErr()
 }
 
 func RunDemo() {

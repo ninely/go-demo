@@ -1,11 +1,11 @@
 package study
 
+// WaitPanic 退出之前等待 panic
 func WaitPanic() error {
 	go func() {
 		panic("wait panic")
 	}()
 	select {}
-	return nil
 }
 
 func NotWaitPanic() error {

@@ -21,6 +21,8 @@ func MarshalNil() (string, error) {
 	return string(b), err
 }
 
+// MarshalPointStruct
+// return {"data":{"name":""}}
 func MarshalPointStruct() string {
 	var s SubStruct
 	data := &s
@@ -32,6 +34,8 @@ func MarshalPointStruct() string {
 	return string(b)
 }
 
+// MarshalPointStructEmpty 对于内嵌的结构体指针，在初始化时未显式初始化内嵌字段，Marshal 结果字段不输出
+// return {"data":null}
 func MarshalPointStructEmpty() string {
 	m := &MainStructPoint{}
 	b, err := json.Marshal(m)
