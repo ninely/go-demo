@@ -5,7 +5,6 @@ import (
 	"demo/internal/biz"
 	"demo/internal/data"
 	"demo/internal/service"
-	"demo/study"
 	"encoding/base64"
 	"fmt"
 	"github.com/pkg/errors"
@@ -27,24 +26,49 @@ func RunStudy(handler interface{}) {
 	fmt.Printf("%s: %s\n", funcName, result)
 }
 
+type SubStruct struct {
+	Name string
+}
+
+func (v *SubStruct) Run() {
+	fmt.Println(v.Name)
+}
+
+type DStruct struct {
+	Sub *SubStruct
+}
+
 func main() {
-	RunStudy(study.AppendNil)
-	RunStudy(study.RefAll)
-	RunStudy(study.ReadNil)
-	RunStudy(study.WriteNil)
+	// ctx := context.Background()
+	// rTest := NewRedisTest()
+	//
+	// fmt.Println("----- before -----")
+	// rTest.InfoMemory(ctx)
+	// rTest.InfoKeyspace(ctx)
+	// rTest.WriteValue(ctx, 200, 20*10000)
+	// fmt.Println("----- after -----")
+	// rTest.InfoMemory(ctx)
+	// rTest.InfoKeyspace(ctx)
 
-	RunStudy(study.EmptyToByte)
-
-	RunStudy(study.WriteNil)
-	RunStudy(study.FilePath)
-	RunStudy(study.LevCompare)
-	RunStudy(study.IntType)
-
-	RunStudy(study.MarshalNil)
-	RunStudy(study.MarshalStruct)
-	RunStudy(study.MarshalPointStruct)
-	RunStudy(study.MarshalStructEmpty)
-	RunStudy(study.MarshalPointStructEmpty)
+	// d := DStruct{}
+	// d.Sub.Run()
+	// RunStudy(study.AppendNil)
+	// RunStudy(study.RefAll)
+	// RunStudy(study.ReadNil)
+	// RunStudy(study.WriteNil)
+	//
+	// RunStudy(study.EmptyToByte)
+	//
+	// RunStudy(study.WriteNil)
+	// RunStudy(study.FilePath)
+	// RunStudy(study.LevCompare)
+	// RunStudy(study.IntType)
+	//
+	// RunStudy(study.MarshalNil)
+	// RunStudy(study.MarshalStruct)
+	// RunStudy(study.MarshalPointStruct)
+	// RunStudy(study.MarshalStructEmpty)
+	// RunStudy(study.MarshalPointStructEmpty)
 
 	// RunStudy(study.NotWaitPanic)
 	// RunStudy(study.WaitPanic)
