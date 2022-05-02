@@ -6,6 +6,7 @@ import (
 	"github.com/go-redis/redis/v8"
 	"math"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -56,23 +57,42 @@ func NewRedisTest() *redisTest {
 }
 
 func (r *redisTest) WriteValue(ctx context.Context, size, batch int) {
+	keyFormat := getKeyFormat(batch)
 	bData := NewByteDataGenerate(size)
 	for i := 1; i <= batch; i++ {
-		key := strconv.Itoa(i)
+		key := fmt.Sprintf(keyFormat, strconv.Itoa(i))
 		value := bData.GetNextByteData()
-		err := r.rdb.Set(ctx, key, value, 200*time.Second).Err()
+		err := r.rdb.Set(ctx, key, value, 250*time.Second).Err()
 		if err != nil {
 			panic(err)
 		}
 	}
 }
 
-func (r *redisTest) InfoMemory(ctx context.Context) {
+func getKeyFormat(batch int) string {
+	b := batch
+	strSize := 0
+	for b > 0 {
+		b /= 10
+		strSize += 1
+	}
+	return "%0" + strconv.Itoa(strSize) + "s"
+}
+
+func (r *redisTest) InfoMemory(ctx context.Context) (string, string) {
 	val, err := r.rdb.Info(ctx, "memory").Result()
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(val)
+	rows := strings.Split(val, "\r\n")
+	usedMemory := rows[1]
+	usedMemoryTerms := strings.Split(usedMemory, ":")
+	used := usedMemoryTerms[1]
+
+	usedMemoryHuman := rows[2]
+	usedMemoryHumanTerms := strings.Split(usedMemoryHuman, ":")
+	usedHuman := usedMemoryHumanTerms[1]
+	return used, usedHuman
 }
 
 func (r *redisTest) InfoKeyspace(ctx context.Context) {
@@ -80,5 +100,6 @@ func (r *redisTest) InfoKeyspace(ctx context.Context) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(val)
+	rows := strings.Split(val, "\r\n")
+	fmt.Println(rows[1])
 }
