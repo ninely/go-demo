@@ -3,6 +3,7 @@ package data
 import (
 	"context"
 	"demo/internal/service"
+	"github.com/pkg/errors"
 )
 
 type repository struct {
@@ -14,5 +15,9 @@ func NewRepository(d *Data) service.Repo {
 }
 
 func (r *repository) Save(ctx context.Context, model *service.Model) error {
-	return r.dao.DB(ctx).Find(model).Error
+	err := r.dao.DB(ctx).Find(model).Error
+	if err != nil {
+		return errors.Wrap(err, "save failed")
+	}
+	return nil
 }

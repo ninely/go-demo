@@ -15,3 +15,15 @@ func RefAll() bool {
 	s2[0] = 3
 	return s1[0] == 1
 }
+
+// AppendAhead 头插法
+func AppendAhead() []int {
+	var size = 5
+	var s = make([]int, 0, size)
+	for i := 1; i <= size; i++ {
+		s = append(s, 0)
+		copy(s[1:], s[:])
+		s[0] = i
+	}
+	return s
+}

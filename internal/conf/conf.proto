@@ -4,7 +4,10 @@ package demo;
 
 option go_package = "demo/conf;conf";
 
-import "google/protobuf/duration.proto";
+
+message Bootstrap {
+  Data data = 2;
+}
 
 message Data {
   message Database {

@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"github.com/pkg/errors"
 )
 
 type Model struct {
@@ -29,6 +30,10 @@ func (m *myDemo) DoSomeBusiness(ctx context.Context) error {
 
 		return err
 	})
+
+	if err != nil {
+		return errors.Wrap(err, "do something failed")
+	}
 
 	return err
 }

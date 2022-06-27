@@ -2,8 +2,11 @@ package data
 
 import (
 	"context"
+	"demo/internal/conf"
 	"demo/internal/service"
+	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"log"
 )
 
 type contextTxKey struct{}
@@ -31,8 +34,12 @@ func NewTransaction(d *Data) service.Transaction {
 	return d
 }
 
-func NewDB() *gorm.DB {
-	return &gorm.DB{}
+func NewDB(conf *conf.Data) *gorm.DB {
+	db, err := gorm.Open(mysql.Open(conf.Database.Source), &gorm.Config{})
+	if err != nil {
+		log.Fatalf("failed opening connection to mysql: %v", err)
+	}
+	return db
 }
 
 func NewData(db *gorm.DB) (*Data, error) {
