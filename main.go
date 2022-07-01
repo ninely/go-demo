@@ -7,6 +7,7 @@ import (
 	"demo/internal/conf"
 	"demo/internal/data"
 	"demo/internal/service"
+	"demo/study"
 	"encoding/base64"
 	"fmt"
 	"github.com/chromedp/chromedp"
@@ -17,7 +18,6 @@ import (
 	"os"
 	"reflect"
 	"runtime"
-	"time"
 )
 
 func RunStudy(handler interface{}) {
@@ -134,8 +134,7 @@ func main() {
 	// }
 	// fmt.Println(res)
 
-	fmt.Println(time.UTC)
-	fmt.Println(time.Local.String())
+	study.SwitchError()
 }
 
 type passwdGeneratorImpl struct {
