@@ -1,7 +1,7 @@
 package study
 
 import (
-	"demo/pkg"
+	"github.com/ninely/go-demo/pkg"
 )
 
 func EmptyToByte() int {

@@ -2,7 +2,7 @@ package data
 
 import (
 	"context"
-	"demo/internal/service"
+	"github.com/ninely/go-demo/internal/service"
 	"github.com/pkg/errors"
 )
 

@@ -2,8 +2,8 @@ package data
 
 import (
 	"context"
-	"demo/internal/conf"
-	"demo/internal/service"
+	"github.com/ninely/go-demo/internal/conf"
+	"github.com/ninely/go-demo/internal/service"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"log"
