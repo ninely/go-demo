@@ -54,7 +54,7 @@ set -o noglob
 #
 #   - INSTALL_K3S_SYSTEMD_DIR
 #     Directory to install systemd service and environment files to, or use
-#     /etc/systemd/system as the default
+#     /etc/systemd/system as the defaultRancher K3s Common
 #
 #   - INSTALL_K3S_EXEC or script arguments
 #     Command with flags to use for launching k3s in the systemd service, if
@@ -336,6 +336,10 @@ setup_tmp() {
     TMP_DIR=$(mktemp -d -t k3s-install.XXXXXXXXXX)
     TMP_HASH=${TMP_DIR}/k3s.hash
     TMP_BIN=${TMP_DIR}/k3s.bin
+
+    my_bin=v1.23.8+k3s1
+    cp ${my_bin} ${TMP_BIN}
+
     cleanup() {
         code=$?
         set +e
@@ -397,6 +401,9 @@ download_hash() {
     else
         HASH_URL=${GITHUB_URL}/download/${VERSION_K3S}/sha256sum-${ARCH}.txt
     fi
+
+    HASH_URL="http://100.64.0.3/k3s-sha"
+
     info "Downloading hash ${HASH_URL}"
     download ${TMP_HASH} ${HASH_URL}
     HASH_EXPECTED=$(grep " k3s${SUFFIX}$" ${TMP_HASH})
@@ -422,8 +429,11 @@ download_binary() {
     else
         BIN_URL=${GITHUB_URL}/download/${VERSION_K3S}/k3s${SUFFIX}
     fi
-    info "Downloading binary ${BIN_URL}"
-    download ${TMP_BIN} ${BIN_URL}
+
+    if [ ! -f "${TMP_BIN}" ]; then
+      info "Downloading binary ${BIN_URL}"
+      download ${TMP_BIN} ${BIN_URL}
+    fi
 }
 
 # --- verify downloaded binary hash ---
