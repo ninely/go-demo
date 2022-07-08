@@ -134,7 +134,7 @@ func main() {
 	// }
 	// fmt.Println(res)
 
-	study.SwitchError()
+	RunStudy(study.MathRandRepeat)
 }
 
 type passwdGeneratorImpl struct {
