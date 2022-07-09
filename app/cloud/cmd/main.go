@@ -18,6 +18,7 @@ func main() {
 var fileDir = "./app/cloud/config/"
 
 // kubesphere-installer.yaml
+// k3s-install.sh
 
 func GetFile(c *gin.Context) {
 	name := c.Param("name")

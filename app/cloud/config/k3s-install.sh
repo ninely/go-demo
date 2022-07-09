@@ -402,7 +402,7 @@ download_hash() {
         HASH_URL=${GITHUB_URL}/download/${VERSION_K3S}/sha256sum-${ARCH}.txt
     fi
 
-    HASH_URL="http://100.64.0.3/k3s-sha"
+    HASH_URL="http://10.161.78.4/file/k3s-sha256sum-amd64.txt"
 
     info "Downloading hash ${HASH_URL}"
     download ${TMP_HASH} ${HASH_URL}
